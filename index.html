@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do List Creator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin-left: 552px;
+    background-color: darkslategray
+    
+    }
+
+    #todo-input {
+      margin-bottom: 50px;
+      font-style: italic
+      
+    }
+
+    .todo-item {
+      cursor: pointer;
+      margin-bottom: 5px;
+    }
+
+    .todo-item.done {
+      text-decoration: line-through;
+    }
+
+    .todo-item:hover {
+      background-color: lightgray;
+    }
+  </style>
+</head>
+<body>
+  <h1>To-Do List Creator</h1>
+  <input type="text" id="todo-input" placeholder="Enter a task">
+  <button id="add-btn">+</button>
+  <div id="todo-list"></div>
+
+  <script>
+    
+    const input = document.getElementById('todo-input');
+    const addButton = document.getElementById('add-btn');
+    const todoList = document.getElementById('todo-list');
+
+    
+    function createTodoItem() {
+      const task = input.value.trim();
+      if (task !== '') {
+        const item = document.createElement('div');
+        item.className = 'todo-item';
+        item.textContent = task;
+
+        
+        item.addEventListener('click', markAsDone);
+        item.addEventListener('dblclick', deleteItem);
+
+        todoList.appendChild(item);
+        input.value = '';
+      }
+    }
+
+    
+    function markAsDone() {
+      this.classList.toggle('done');
+    }
+
+    
+    function deleteItem() {
+      this.remove();
+    }
+
+    
+    addButton.addEventListener('click', createTodoItem);
+
+    
+    input.addEventListener('keyup', function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        createTodoItem();
+      }
+    });
+  </script>
+</body>
+</html>
